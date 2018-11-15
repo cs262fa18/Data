@@ -42,12 +42,12 @@ Notes for each step of the quickstart tutorial:
 2. Create a new CloudSQL instance for your new application according to
 these instructions:
 [Using Cloud SQL for PostgreSQL](https://cloud.google.com/appengine/docs/standard/java/cloud-sql/using-cloud-sql-postgres)
-(cf. Google&rsquo;s [sample code repo](https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/appengine-java8/cloudsql-postgres)).
+(cf. Google's [sample code repo](https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/appengine-java8/cloudsql-postgres)).
 Note the following for each section of the tutorial:
     - *Before you begin*
-        - Skip this step; you&rsquo;ve already done it.
+        - Skip this step; you've already done it.
     - *Setting up the Cloud SQL instance*
-        1. Step 1 &mdash; Do as specified on the sub-page.
+        1. Step 1 -- Do as specified on the sub-page.
             - We suggest using the GCloud console for this.
             - Specify a PostgreSQL Development instance.
             - Use the "Development" engine configuration
@@ -57,12 +57,12 @@ Note the following for each section of the tutorial:
                 and default user password. Remember these.
             - We suggest using this region: `us-east4`
                 and this zone: `us-east4-b`.
-        2. Steps 2&ndash;3 &mdash; You can skip these; you've just done them.
-        3. Step 4 &mdash; Do this one as a sanity check.
-        4. Step 5 &mdash; Skip this; it's done automatically.
-        5. Step 6 &mdash; Edit the `pom.xml` as specified here,
+        2. Steps 2-3 -- You can skip these; you've just done them.
+        3. Step 4 -- Do this one as a sanity check.
+        4. Step 5 -- Skip this; it's done automatically.
+        5. Step 6 -- Edit the `pom.xml` as specified here,
             replacing the `LAB09-YOUR-*` entries as appropriate.
-        6. Steps 7&ndash;8 &mdash; Skip these;
+        6. Steps 7-8 -- Skip these;
             this is already included in the lab 9 code.             `
     - *Granting access to App Engine*
         - Skip this step; your CloudSQL is built into the same application.
@@ -91,12 +91,12 @@ Note the following for each section of the tutorial:
 3. Create a new CloudEndpoints API for your new application according to
 these instructions:
 [Getting Started with Endpoints Frameworks on App Engine](https://cloud.google.com/endpoints/docs/frameworks/java/get-started-frameworks-java)
-(cf. Google&rsquo;s [sample code repo](https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/appengine-java8/endpoints-v2-backend)).
+(cf. Google's [sample code repo](https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/appengine-java8/endpoints-v2-backend)).
 Note the following for each section of the tutorial:
     - *Before you begin* &
         *Installing and configuring required software* &
         *Getting the sample code*
-        - Skip these; you&rsquo;ve already done them.
+        - Skip these; you've already done them.
     - *Configuring Endpoints*
         - Do as written (but on the lab 9 sample code).
     - *Deploying the Endpoints configuration*
@@ -146,5 +146,5 @@ This requires that you:
 - Change the package path names.
 - Build a new version of the Player and PlayerResource classes.
     While doing this, you should edit the `@ApiNamespace` appropriately,
-    but you don&rsquo;t need to set the `@ApiIssuer`.
+    but you don't need to set the `@ApiIssuer`.
 - Update `src/main/webapp/WEB-INF/web.xml`.
