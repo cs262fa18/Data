@@ -34,7 +34,9 @@ public class Hello {
 
     /**
      * This method returns a simple hello-world message.
-     * N.b., a Google Endpoint must return an entity (not, e.g., a String).
+     *
+     * N.b., a Google Endpoint must return an entity (not, e.g., a String), so the method
+     * returns a "hello" person object.
      *
      * @return a hello-world entity in JSON format
      */

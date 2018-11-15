@@ -24,35 +24,62 @@ import static com.google.api.server.spi.config.ApiMethod.HttpMethod.DELETE;
  * You should configure the name and namespace appropriately.
  */
 @Api(
-    name = "monopoly",
-    version = "v1",
-    namespace =
-    @ApiNamespace(
-        ownerDomain = "lab09.cs262.calvin.edu",
-        ownerName = "lab09.cs262.calvin.edu",
-        packagePath = ""
-    ),
-    issuers = {
-        @ApiIssuer(
-            name = "firebase",
-            issuer = "https://securetoken.google.com/YOUR-PROJECT-ID",
-            jwksUri =
-                "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system"
-                    + ".gserviceaccount.com"
-        )
-    }
+        name = "monopoly",
+        version = "v1",
+        namespace =
+        @ApiNamespace(
+                ownerDomain = "lab09.cs262.calvin.edu",
+                ownerName = "lab09.cs262.calvin.edu",
+                packagePath = ""
+        ),
+        issuers = {
+                @ApiIssuer(
+                        name = "firebase",
+                        issuer = "https://securetoken.google.com/YOUR-PROJECT-ID",
+                        jwksUri =
+                                "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system"
+                                        + ".gserviceaccount.com"
+                )
+        }
 )
 
 /**
  * This class implements a RESTful service for the player table of the monopoly database.
- * Only the player relation is supported, not the game or playergame relations.
+ * Only the player table is supported, not the game or playergame tables.
+ *
+ * You can test the GET endpoints using a standard browser or cURL.
+ *
+ * % curl --request GET \
+ *    https://calvincs262-monopoly.appspot.com/monopoly/v1/players
+ *
+ * % curl --request GET \
+ *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/1
+ *
+ * You can test the full REST API using the following sequence of cURL commands (on Linux):
+ * (Run get-players between each command to see the results.)
+ *
+ * // Add a new player (probably as unique generated ID #4).
+ * % curl --request POST \
+ *    --header "Content-Type: application/json" \
+ *    --data '{"name":"test name...", "emailAddress":"test email..."}' \
+ *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player
+ *
+ * // Edit the new player (assuming ID #4).
+ * % curl --request PUT \
+ *    --header "Content-Type: application/json" \
+ *    --data '{"name":"new test name...", "emailAddress":"new test email..."}' \
+ *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/4
+ *
+ * // Delete the new player (assuming ID #4).
+ * % curl --request DELETE \
+ *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/4
+ *
  */
 public class PlayerResource {
 
     /**
      * GET
-     * This method gets the full list of players from the Player table. It uses JDBC to
-     * establish a DB connection, construct/send a simple SQL query, and process the results.
+     * This method gets the full list of players from the Player table.
      *
      * @return JSON-formatted list of player records (based on a root JSON tag of "items")
      * @throws SQLException
@@ -78,9 +105,9 @@ public class PlayerResource {
         } catch (SQLException e) {
             throw(e);
         } finally {
-            resultSet.close();
-            statement.close();
-            connection.close();
+            if (resultSet != null) { resultSet.close(); }
+            if (statement != null) { statement.close(); }
+            if (connection != null) { connection.close(); }
         }
         return result;
     }
@@ -95,8 +122,29 @@ public class PlayerResource {
      */
     @ApiMethod(path="player/{id}", httpMethod=GET)
     public Player getPlayer(@Named("id") int id) throws SQLException {
-        // TODO: Implement the get-player resource (Lab 9).
-        return null;
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Player result = null;
+        try {
+            connection = DriverManager.getConnection(System.getProperty("cloudsql"));
+            statement = connection.createStatement();
+            resultSet = selectPlayer(id, statement);
+            if (resultSet.next()) {
+                result = new Player(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        resultSet.getString(3)
+                );
+            }
+        } catch (SQLException e) {
+            throw(e);
+        } finally {
+            if (resultSet != null) { resultSet.close(); }
+            if (statement != null) { statement.close(); }
+            if (connection != null) { connection.close(); }
+        }
+        return result;
     }
 
     /**
@@ -115,19 +163,26 @@ public class PlayerResource {
      */
     @ApiMethod(path="player/{id}", httpMethod=PUT)
     public Player putPlayer(Player player, @Named("id") int id) throws SQLException {
-        /*
-         TODO: Implement/document the put-player resource (Homework 3).
-         Algorithm (based on getPlayers():
-             Setup JDBC connection, statement and resultSet.
-             Connect to the cloudSQL DB.
-             Try to select the player with the given ID.
-             If it exists:
-                 Update it using the given player field values
-             Else:
-                 Insert a new player using the given player values and ID.
-             Handle exceptions and close resources.
-             Return the player.
-          */
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DriverManager.getConnection(System.getProperty("cloudsql"));
+            statement = connection.createStatement();
+            player.setId(id);
+            resultSet = selectPlayer(id, statement);
+            if (resultSet.next()) {
+                updatePlayer(player, statement);
+            } else {
+                insertPlayer(player, statement);
+            }
+        } catch (SQLException e) {
+            throw (e);
+        } finally {
+            if (resultSet != null) { resultSet.close(); }
+            if (statement != null) { statement.close(); }
+            if (connection != null) { connection.close(); }
+        }
         return player;
     }
 
@@ -148,17 +203,26 @@ public class PlayerResource {
      */
     @ApiMethod(path="player", httpMethod=POST)
     public Player postPlayer(Player player) throws SQLException {
-        /*
-        TODO: Implement/document the post-player resource (Homework 3).
-         Algorithm (based on getPlayers():
-             Setup JDBC connection, statement and resultSet.
-             Connect to the cloudSQL DB.
-             Select the largest player ID in the DB.
-             Set the ID of the given player to the max(ID) + 1.
-             Insert the new player into the DB.
-             Handle exceptions and close resources.
-             Return the player.
-         */
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DriverManager.getConnection(System.getProperty("cloudsql"));
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT MAX(ID) FROM Player");
+            if (resultSet.next()) {
+                player.setId(resultSet.getInt(1) + 1);
+            } else {
+                throw new RuntimeException("failed to find unique ID...");
+            }
+            insertPlayer(player, statement);
+        } catch (SQLException e) {
+            throw (e);
+        } finally {
+            if (resultSet != null) { resultSet.close(); }
+            if (statement != null) { statement.close(); }
+            if (connection != null) { connection.close(); }
+        }
         return player;
     }
 
@@ -174,17 +238,30 @@ public class PlayerResource {
      */
     @ApiMethod(path="player/{id}", httpMethod=DELETE)
     public void deletePlayer(@Named("id") int id) throws SQLException {
-        /*
-        TODO: Implement/document the delete-player resource (Homework 3).
-         Algorithm (based on getPlayers():
-             Setup JDBC connection and statement (no resultSet is needed).
-             Connect to the cloudSQL DB.
-             Delete the existing player with the given ID.
-             Handle exceptions and close resources.
-         */
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = DriverManager.getConnection(System.getProperty("cloudsql"));
+            statement = connection.createStatement();
+            deletePlayer(id, statement);
+        } catch (SQLException e) {
+            throw (e);
+        } finally {
+            if (statement != null) { statement.close(); }
+            if (connection != null) { connection.close(); }
+        }
     }
 
     /** SQL Utility Functions *********************************************/
+
+    /*
+     * This function gets the player with the given id using the given JDBC statement.
+     */
+    private ResultSet selectPlayer(int id, Statement statement) throws SQLException {
+        return statement.executeQuery(
+                String.format("SELECT * FROM Player WHERE id=%d", id)
+        );
+    }
 
     /*
      * This function gets the player with the given id using the given JDBC statement.
@@ -195,7 +272,40 @@ public class PlayerResource {
         );
     }
 
-    // TODO: Add utilities for selectPlayer(), updatePlayer(), insertPlayer() and deletePlayer().
+    /*
+     * This function modifies the given player using the given JDBC statement.
+     */
+    private void updatePlayer(Player player, Statement statement) throws SQLException {
+        statement.executeUpdate(
+                String.format("UPDATE Player SET emailAddress='%s', name=%s WHERE id=%d",
+                        player.getEmailAddress(),
+                        getValueStringOrNull(player.getName()),
+                        player.getId()
+                )
+        );
+    }
+
+    /*
+     * This function inserts the given player using the given JDBC statement.
+     */
+    private void insertPlayer(Player player, Statement statement) throws SQLException {
+        statement.executeUpdate(
+                String.format("INSERT INTO Player VALUES (%d, '%s', %s)",
+                        player.getId(),
+                        player.getEmailAddress(),
+                        getValueStringOrNull(player.getName())
+                )
+        );
+    }
+
+    /*
+     * This function gets the player with the given id using the given JDBC statement.
+     */
+    private void deletePlayer(int id, Statement statement) throws SQLException {
+        statement.executeUpdate(
+                String.format("DELETE FROM Player WHERE id=%d", id)
+        );
+    }
 
     /*
      * This function returns a value literal suitable for an SQL INSERT/UPDATE command.
