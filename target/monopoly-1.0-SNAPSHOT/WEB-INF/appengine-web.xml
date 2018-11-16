@@ -24,7 +24,7 @@
 
     <system-properties>
         <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
-        <property name="cloudsql" value="jdbc:postgresql://google/calvincs262-fall2018-teama-db?useSSL=false&amp;socketFactoryArg=calvincs262-fall2018-teama:us-east4:calvincs262-fall2018-teama-db&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=postgres&amp;password=TheATeam" />
+        <property name="cloudsql" value="jdbc:postgresql://google/postgres?useSSL=false&amp;socketFactoryArg=calvincs262-fall2018-teama:us-east4:calvincs262-fall2018-teama-db&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=postgres&amp;password=TheATeam" />
     </system-properties>
     <!-- [START env_variables] -->
     <env-variables>
