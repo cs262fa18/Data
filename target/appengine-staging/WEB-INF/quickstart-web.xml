@@ -78,7 +78,7 @@
     <servlet-class origin="WebDescriptor(file:///home/tjv37/262/Project/Data/target/appengine-staging/WEB-INF/web.xml):10">com.google.api.server.spi.EndpointsServlet</servlet-class>
     <init-param origin="WebDescriptor(file:///home/tjv37/262/Project/Data/target/appengine-staging/WEB-INF/web.xml):11">
       <param-name>services</param-name>
-      <param-value>edu.calvin.cs262.lab09.Hello,edu.calvin.cs262.lab09.PlayerResource</param-value>
+      <param-value>edu.calvin.cs262.lab09.Hello,edu.calvin.cs262.lab09.TimeResource,edu.calvin.cs262.lab09.EmployeeResource,edu.calvin.cs262.lab09.ProjectResource</param-value>
     </init-param>
     <async-supported>false</async-supported>
   </servlet>
