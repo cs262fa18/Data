@@ -9,7 +9,7 @@ package edu.calvin.cs262.lab09;
 public class Time {
 
     private int id;
-    private java.sql.Timestamp startTime, endTime;
+    private String startTime, endTime;
     private int employeeID;
     private int projectID;
     private String myUUID;
@@ -18,7 +18,7 @@ public class Time {
     public Time() {
         // The JSON marshaller used by Endpoints requires this default constructor.
     }
-    public Time(int id, java.sql.Timestamp startTime, java.sql.Timestamp endTime, int employeeID, int projectID, String myUUID) {
+    public Time(int id, String startTime, String endTime, int employeeID, int projectID, String myUUID) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -34,19 +34,19 @@ public class Time {
         this.id = id;
     }
 
-    public java.sql.Timestamp getStartTime() {
+    public String getStartTime() {
         return this.startTime;
     }
 
-    public void setStartTime(java.sql.Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public java.sql.Timestamp getEndTime() {
+    public String getEndTime() {
         return this.endTime;
     }
 
-    public void setEndTime(java.sql.Timestamp endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

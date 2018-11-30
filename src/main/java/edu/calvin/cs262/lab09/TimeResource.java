@@ -97,8 +97,8 @@ public class TimeResource {
             while (resultSet.next()) {
                 Time t = new Time(
                         Integer.parseInt(resultSet.getString(1)),
-                        java.sql.Timestamp.valueOf(resultSet.getString(2)),
-                        java.sql.Timestamp.valueOf(resultSet.getString(3)),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
                         Integer.parseInt(resultSet.getString(4)),
                         Integer.parseInt(resultSet.getString(5)),
                         resultSet.getString(6)
@@ -136,8 +136,8 @@ public class TimeResource {
             if (resultSet.next()) {
                 result = new Time(
                         Integer.parseInt(resultSet.getString(1)),
-                        java.sql.Timestamp.valueOf(resultSet.getString(2)),
-                        java.sql.Timestamp.valueOf(resultSet.getString(3)),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
                         Integer.parseInt(resultSet.getString(4)),
                         Integer.parseInt(resultSet.getString(5)),
                         resultSet.getString(6)
@@ -284,8 +284,8 @@ public class TimeResource {
     private void updateTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
                 String.format("UPDATE Time SET starttime='%s', endtime='%s', employeeid=%d, projectid=%d, uuid='%s' WHERE id=%d",
-                        time.getStartTime().toString(),
-                        time.getEndTime().toString(),
+                        time.getStartTime(),
+                        time.getEndTime(),
                         time.getEmployeeID(),
                         time.getProjectID(),
                         time.getUUID(),
@@ -301,8 +301,8 @@ public class TimeResource {
         statement.executeUpdate(
                 String.format("INSERT INTO Time VALUES (%d, '%s', '%s', %d, %d, '%s')",
                         time.getId(),
-                        time.getStartTime().toString(),
-                        time.getEndTime().toString(),
+                        time.getStartTime(),
+                        time.getEndTime(),
                         time.getEmployeeID(),
                         time.getProjectID(),
                         time.getUUID()

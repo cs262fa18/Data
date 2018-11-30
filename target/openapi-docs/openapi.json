@@ -416,7 +416,7 @@
      "format": "int32"
     },
     "endTime": {
-     "$ref": "#/definitions/Timestamp"
+     "type": "string"
     },
     "id": {
      "type": "integer",
@@ -427,54 +427,10 @@
      "format": "int32"
     },
     "startTime": {
-     "$ref": "#/definitions/Timestamp"
+     "type": "string"
     },
     "uuid": {
      "type": "string"
-    }
-   }
-  },
-  "Timestamp": {
-   "properties": {
-    "date": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "day": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "hours": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "minutes": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "month": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "nanos": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "seconds": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "time": {
-     "type": "integer",
-     "format": "int64"
-    },
-    "timezoneOffset": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "year": {
-     "type": "integer",
-     "format": "int32"
     }
    }
   }
