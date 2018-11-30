@@ -428,6 +428,9 @@
     },
     "startTime": {
      "$ref": "#/definitions/Timestamp"
+    },
+    "uuid": {
+     "type": "string"
     }
    }
   },

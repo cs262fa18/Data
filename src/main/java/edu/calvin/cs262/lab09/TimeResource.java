@@ -100,7 +100,8 @@ public class TimeResource {
                         java.sql.Timestamp.valueOf(resultSet.getString(2)),
                         java.sql.Timestamp.valueOf(resultSet.getString(3)),
                         Integer.parseInt(resultSet.getString(4)),
-                        Integer.parseInt(resultSet.getString(5))
+                        Integer.parseInt(resultSet.getString(5)),
+                        resultSet.getString(6)
                 );
                 result.add(t);
             }
@@ -138,7 +139,8 @@ public class TimeResource {
                         java.sql.Timestamp.valueOf(resultSet.getString(2)),
                         java.sql.Timestamp.valueOf(resultSet.getString(3)),
                         Integer.parseInt(resultSet.getString(4)),
-                        Integer.parseInt(resultSet.getString(5))
+                        Integer.parseInt(resultSet.getString(5)),
+                        resultSet.getString(6)
                 );
             }
         } catch (SQLException e) {
@@ -281,11 +283,12 @@ public class TimeResource {
      */
     private void updateTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE Time SET starttime='%s', endtime='%s', employeeid=%d, projectid=%d WHERE id=%d",
+                String.format("UPDATE Time SET starttime='%s', endtime='%s', employeeid=%d, projectid=%d, uuid='%s' WHERE id=%d",
                         time.getStartTime().toString(),
                         time.getEndTime().toString(),
                         time.getEmployeeID(),
                         time.getProjectID(),
+                        time.getUUID(),
                         time.getId()
                 )
         );
@@ -296,12 +299,13 @@ public class TimeResource {
      */
     private void insertTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("INSERT INTO Time VALUES (%d, '%s', '%s', %d, %d)",
+                String.format("INSERT INTO Time VALUES (%d, '%s', '%s', %d, %d, '%s')",
                         time.getId(),
                         time.getStartTime().toString(),
                         time.getEndTime().toString(),
                         time.getEmployeeID(),
-                        time.getProjectID()
+                        time.getProjectID(),
+                        time.getUUID()
                 )
         );
     }

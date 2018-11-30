@@ -12,17 +12,19 @@ public class Time {
     private java.sql.Timestamp startTime, endTime;
     private int employeeID;
     private int projectID;
+    private String myUUID;
 
 
     public Time() {
         // The JSON marshaller used by Endpoints requires this default constructor.
     }
-    public Time(int id, java.sql.Timestamp startTime, java.sql.Timestamp endTime, int employeeID, int projectID) {
+    public Time(int id, java.sql.Timestamp startTime, java.sql.Timestamp endTime, int employeeID, int projectID, String myUUID) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.employeeID = employeeID;
         this.projectID = projectID;
+        this.myUUID = myUUID;
     }
 
     public int getId() {
@@ -60,6 +62,14 @@ public class Time {
     }
     public void setProjectID(int projectID) {
         this.projectID = projectID;
+    }
+
+    public String getUUID() {
+    	return this.myUUID;
+    }
+
+    public void setUUID(String myUUID) {
+    	this.myUUID = myUUID;
     }
 
 }
