@@ -9,29 +9,38 @@ package edu.calvin.cs262.lab09;
 public class Time {
 
     private int id;
+    private String myUUID;
     private String startTime, endTime;
     private int employeeID;
     private int projectID;
-    private String myUUID;
 
 
     public Time() {
         // The JSON marshaller used by Endpoints requires this default constructor.
     }
-    public Time(int id, String startTime, String endTime, int employeeID, int projectID, String myUUID) {
+    public Time(int id, String myUUID, String startTime, String endTime, int employeeID, int projectID) {
         this.id = id;
+        this.myUUID = myUUID;
         this.startTime = startTime;
         this.endTime = endTime;
         this.employeeID = employeeID;
         this.projectID = projectID;
-        this.myUUID = myUUID;
     }
 
-    public int getId() {
+    public int getID() {
         return this.id;
     }
+
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUUID() {
+        return this.myUUID;
+    }
+
+    public void setUUID(String myUUID) {
+        this.myUUID = myUUID;
     }
 
     public String getStartTime() {
@@ -62,14 +71,6 @@ public class Time {
     }
     public void setProjectID(int projectID) {
         this.projectID = projectID;
-    }
-
-    public String getUUID() {
-    	return this.myUUID;
-    }
-
-    public void setUUID(String myUUID) {
-    	this.myUUID = myUUID;
     }
 
 }

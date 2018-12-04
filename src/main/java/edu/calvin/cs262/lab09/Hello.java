@@ -42,7 +42,7 @@ public class Hello {
      */
     @ApiMethod(httpMethod=GET)
     public Time hello() {
-        return new Time(-1, null, null, -1, -1, null);
+        return new Time(-1, null, null, null, -1, -1);
     }
 
 }

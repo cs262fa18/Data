@@ -97,7 +97,9 @@ public class EmployeeResource {
             while (resultSet.next()) {
                 Employee emp = new Employee(
                         Integer.parseInt(resultSet.getString(1)),
-                        resultSet.getString(2)
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4)
                 );
                 result.add(emp);
             }
@@ -132,7 +134,9 @@ public class EmployeeResource {
             if (resultSet.next()) {
                 result = new Employee(
                         Integer.parseInt(resultSet.getString(1)),
-                        resultSet.getString(2)
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4)
                 );
             }
         } catch (SQLException e) {
@@ -275,8 +279,10 @@ public class EmployeeResource {
      */
     private void updateEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE Employee SET name='%s' WHERE id=%d",
+                String.format("UPDATE Employee SET name='%s', username='%s', password='%s' WHERE id=%d",
                         employee.getName(),
+                        employee.getUsername(),
+                        employee.getPassword(),
                         employee.getId()
                 )
         );
@@ -287,9 +293,11 @@ public class EmployeeResource {
      */
     private void insertEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("INSERT INTO Employee VALUES (%d, '%s')",
+                String.format("INSERT INTO Employee VALUES (%d, '%s', '%s', '%s')",
                         employee.getId(),
-                        employee.getName()
+                        employee.getName(),
+                        employee.getUsername(),
+                        employee.getPassword()
                 )
         );
     }

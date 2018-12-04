@@ -99,9 +99,9 @@ public class TimeResource {
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
                         resultSet.getString(3),
-                        Integer.parseInt(resultSet.getString(4)),
+                        resultSet.getString(4),
                         Integer.parseInt(resultSet.getString(5)),
-                        resultSet.getString(6)
+                        Integer.parseInt(resultSet.getString(6))
                 );
                 result.add(t);
             }
@@ -138,9 +138,9 @@ public class TimeResource {
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
                         resultSet.getString(3),
-                        Integer.parseInt(resultSet.getString(4)),
+                        resultSet.getString(4),
                         Integer.parseInt(resultSet.getString(5)),
-                        resultSet.getString(6)
+                        Integer.parseInt(resultSet.getString(6))
                 );
             }
         } catch (SQLException e) {
@@ -283,13 +283,13 @@ public class TimeResource {
      */
     private void updateTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE Time SET starttime='%s', endtime='%s', employeeid=%d, projectid=%d, uuid='%s' WHERE id=%d",
+                String.format("UPDATE Time SET uuid='%s, starttime='%s', endtime='%s', employeeid=%d, projectid=%d WHERE id=%d",
+                        time.getUUID(),
                         time.getStartTime(),
                         time.getEndTime(),
                         time.getEmployeeID(),
                         time.getProjectID(),
-                        time.getUUID(),
-                        time.getId()
+                        time.getID()
                 )
         );
     }
@@ -299,13 +299,13 @@ public class TimeResource {
      */
     private void insertTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("INSERT INTO Time VALUES (%d, '%s', '%s', %d, %d, '%s')",
-                        time.getId(),
+                String.format("INSERT INTO Time VALUES (%d, '%s', '%s', '%s', %d, %d)",
+                        time.getID(),
+                        time.getUUID(),
                         time.getStartTime(),
                         time.getEndTime(),
                         time.getEmployeeID(),
-                        time.getProjectID(),
-                        time.getUUID()
+                        time.getProjectID()
                 )
         );
     }
