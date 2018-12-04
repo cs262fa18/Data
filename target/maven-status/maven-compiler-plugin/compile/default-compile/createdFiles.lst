@@ -1,7 +1,7 @@
-edu/calvin/cs262/lab09/EmployeeResource.class
-edu/calvin/cs262/lab09/Time.class
-edu/calvin/cs262/lab09/ProjectResource.class
-edu/calvin/cs262/lab09/Employee.class
-edu/calvin/cs262/lab09/TimeResource.class
-edu/calvin/cs262/lab09/Hello.class
-edu/calvin/cs262/lab09/Project.class
+edu/calvin/cs262/project/Time.class
+edu/calvin/cs262/project/ProjectResource.class
+edu/calvin/cs262/project/Project.class
+edu/calvin/cs262/project/Hello.class
+edu/calvin/cs262/project/TimeResource.class
+edu/calvin/cs262/project/Employee.class
+edu/calvin/cs262/project/EmployeeResource.class

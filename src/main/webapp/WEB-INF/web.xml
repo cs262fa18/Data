@@ -26,7 +26,7 @@
         <init-param>
             <param-name>services</param-name>
             <!-- change this to add/remove tables from the service -->
-            <param-value>edu.calvin.cs262.lab09.Hello,edu.calvin.cs262.lab09.TimeResource,edu.calvin.cs262.lab09.EmployeeResource,edu.calvin.cs262.lab09.ProjectResource</param-value>
+            <param-value>edu.calvin.cs262.project.Hello,edu.calvin.cs262.project.TimeResource,edu.calvin.cs262.project.EmployeeResource,edu.calvin.cs262.project.ProjectResource</param-value>
         </init-param>
     </servlet>
     <!-- Route API method requests to the backend. -->

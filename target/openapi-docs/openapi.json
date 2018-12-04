@@ -16,9 +16,9 @@
   "application/json"
  ],
  "paths": {
-  "/monopoly/v1/employee": {
+  "/teama/v1/employee": {
    "post": {
-    "operationId": "MonopolyPostEmployee",
+    "operationId": "TeamaPostEmployee",
     "parameters": [
      {
       "in": "body",
@@ -39,9 +39,9 @@
     }
    }
   },
-  "/monopoly/v1/employee/{id}": {
+  "/teama/v1/employee/{id}": {
    "get": {
-    "operationId": "MonopolyGetEmployee",
+    "operationId": "TeamaGetEmployee",
     "parameters": [
      {
       "name": "id",
@@ -61,7 +61,7 @@
     }
    },
    "put": {
-    "operationId": "MonopolyPutEmployee",
+    "operationId": "TeamaPutEmployee",
     "parameters": [
      {
       "in": "body",
@@ -89,7 +89,7 @@
     }
    },
    "delete": {
-    "operationId": "MonopolyDeleteEmployee",
+    "operationId": "TeamaDeleteEmployee",
     "parameters": [
      {
       "name": "id",
@@ -106,9 +106,9 @@
     }
    }
   },
-  "/monopoly/v1/employees": {
+  "/teama/v1/employees": {
    "get": {
-    "operationId": "MonopolyGetEmployees",
+    "operationId": "TeamaGetEmployees",
     "parameters": [ ],
     "responses": {
      "200": {
@@ -120,9 +120,9 @@
     }
    }
   },
-  "/monopoly/v1/hello": {
+  "/teama/v1/hello": {
    "get": {
-    "operationId": "MonopolyHello",
+    "operationId": "TeamaHello",
     "parameters": [ ],
     "responses": {
      "200": {
@@ -134,9 +134,9 @@
     }
    }
   },
-  "/monopoly/v1/project": {
+  "/teama/v1/project": {
    "post": {
-    "operationId": "MonopolyPostProject",
+    "operationId": "TeamaPostProject",
     "parameters": [
      {
       "in": "body",
@@ -157,9 +157,9 @@
     }
    }
   },
-  "/monopoly/v1/project/{id}": {
+  "/teama/v1/project/{id}": {
    "get": {
-    "operationId": "MonopolyGetProject",
+    "operationId": "TeamaGetProject",
     "parameters": [
      {
       "name": "id",
@@ -179,7 +179,7 @@
     }
    },
    "put": {
-    "operationId": "MonopolyPutProject",
+    "operationId": "TeamaPutProject",
     "parameters": [
      {
       "in": "body",
@@ -207,7 +207,7 @@
     }
    },
    "delete": {
-    "operationId": "MonopolyDeleteProject",
+    "operationId": "TeamaDeleteProject",
     "parameters": [
      {
       "name": "id",
@@ -224,9 +224,9 @@
     }
    }
   },
-  "/monopoly/v1/projects": {
+  "/teama/v1/projects": {
    "get": {
-    "operationId": "MonopolyGetProjects",
+    "operationId": "TeamaGetProjects",
     "parameters": [ ],
     "responses": {
      "200": {
@@ -238,9 +238,9 @@
     }
    }
   },
-  "/monopoly/v1/time": {
+  "/teama/v1/time": {
    "post": {
-    "operationId": "MonopolyPostTime",
+    "operationId": "TeamaPostTime",
     "parameters": [
      {
       "in": "body",
@@ -261,9 +261,9 @@
     }
    }
   },
-  "/monopoly/v1/time/{id}": {
+  "/teama/v1/time/{id}": {
    "get": {
-    "operationId": "MonopolyGetTime",
+    "operationId": "TeamaGetTime",
     "parameters": [
      {
       "name": "id",
@@ -283,7 +283,7 @@
     }
    },
    "put": {
-    "operationId": "MonopolyPutTime",
+    "operationId": "TeamaPutTime",
     "parameters": [
      {
       "in": "body",
@@ -311,7 +311,7 @@
     }
    },
    "delete": {
-    "operationId": "MonopolyDeleteTime",
+    "operationId": "TeamaDeleteTime",
     "parameters": [
      {
       "name": "id",
@@ -328,9 +328,9 @@
     }
    }
   },
-  "/monopoly/v1/times": {
+  "/teama/v1/times": {
    "get": {
-    "operationId": "MonopolyGetTimes",
+    "operationId": "TeamaGetTimes",
     "parameters": [ ],
     "responses": {
      "200": {
