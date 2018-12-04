@@ -25,6 +25,7 @@
         <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
+            <!-- change this to add/remove tables from the service -->
             <param-value>edu.calvin.cs262.lab09.Hello,edu.calvin.cs262.lab09.TimeResource,edu.calvin.cs262.lab09.EmployeeResource,edu.calvin.cs262.lab09.ProjectResource</param-value>
         </init-param>
     </servlet>

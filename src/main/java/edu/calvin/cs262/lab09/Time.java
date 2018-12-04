@@ -1,9 +1,9 @@
 package edu.calvin.cs262.lab09;
 
 /**
- * This class implements a Player Data-Access Object (DAO) class for the Player relation.
- * This provides an object-oriented way to represent and manipulate player "objects" from
- * the traditional (non-object-oriented) Monopoly database.
+ * This class implements a Time Data-Access Object (DAO) class for the Time relation.
+ * This provides an object-oriented way to represent and manipulate time "objects" from
+ * our traditional project database.
  *
  */
 public class Time {

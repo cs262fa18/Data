@@ -23,6 +23,7 @@
 
     <properties>
 
+		<!-- our personal database connection and project information -->
         <INSTANCE_CONNECTION_NAME>calvincs262-fall2018-teama:us-east4:calvincs262-fall2018-teama-db</INSTANCE_CONNECTION_NAME>
         <user>postgres</user>
         <password>TheATeam</password>

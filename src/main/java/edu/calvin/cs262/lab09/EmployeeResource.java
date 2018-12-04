@@ -44,44 +44,43 @@ import static com.google.api.server.spi.config.ApiMethod.HttpMethod.DELETE;
 )
 
 /**
- * This class implements a RESTful service for the player table of the monopoly database.
- * Only the player table is supported, not the game or playergame tables.
+ * This class implements a RESTful service for the Employee table of our project database.
  *
  * You can test the GET endpoints using a standard browser or cURL.
  *
  * % curl --request GET \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/players
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employees
  *
  * % curl --request GET \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/1
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employee/1
  *
  * You can test the full REST API using the following sequence of cURL commands (on Linux):
- * (Run get-players between each command to see the results.)
+ * (Run get-employees between each command to see the results.)
  *
- * // Add a new player (probably as unique generated ID #4).
+ * // Add a new employee (as a uniquely generated ID).
  * % curl --request POST \
  *    --header "Content-Type: application/json" \
- *    --data '{"name":"test name...", "emailAddress":"test email..."}' \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player
+ *    --data '{"name":"test name...", "username":"test username...", "password":"test password..."}' \
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employee
  *
- * // Edit the new player (assuming ID #4).
+ * // Edit the new player (assuming ID #6).
  * % curl --request PUT \
  *    --header "Content-Type: application/json" \
- *    --data '{"name":"new test name...", "emailAddress":"new test email..."}' \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/4
+ *    --data '{"name":"new test name...", "username":"test username...", "password":"test password..."}' \
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employee/6
  *
- * // Delete the new player (assuming ID #4).
+ * // Delete the new player (assuming ID #6).
  * % curl --request DELETE \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/4
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employee/6
  *
  */
 public class EmployeeResource {
 
     /**
      * GET
-     * This method gets the full list of players from the Player table.
+     * This method gets the full list of players from the Employee table.
      *
-     * @return JSON-formatted list of player records (based on a root JSON tag of "items")
+     * @return JSON-formatted list of employee records (based on a root JSON tag of "items")
      * @throws SQLException
      */
     @ApiMethod(path="employees", httpMethod=GET)
@@ -115,10 +114,10 @@ public class EmployeeResource {
 
     /**
      * GET
-     * This method gets the player from the Player table with the given ID.
+     * This method gets the employee from the Employee table with the given ID.
      *
-     * @param id the ID of the requested player
-     * @return if the player exists, a JSON-formatted player record, otherwise an invalid/empty JSON entity
+     * @param id the ID of the requested employee
+     * @return if the employee exists, a JSON-formatted employee record, otherwise an invalid/empty JSON entity
      * @throws SQLException
      */
     @ApiMethod(path="employee/{id}", httpMethod=GET)
@@ -151,16 +150,16 @@ public class EmployeeResource {
 
     /**
      * PUT
-     * This method creates/updates an instance of Person with a given ID.
-     * If the player doesn't exist, create a new player using the given field values.
-     * If the player already exists, update the fields using the new player field values.
+     * This method creates/updates an instance of Employee with a given ID.
+     * If the employee doesn't exist, create a new employee using the given field values.
+     * If the employee already exists, update the fields using the new employee field values.
      * We do this because PUT is idempotent, meaning that running the same PUT several
      * times is the same as running it exactly once.
-     * Any player ID value set in the passed player data is ignored.
+     * Any employee ID value set in the passed employee data is ignored.
      *
-     * @param id     the ID for the player, assumed to be unique
-     * @param player a JSON representation of the player; The id parameter overrides any id specified here.
-     * @return new/updated player entity
+     * @param id     the ID for the employee, assumed to be unique
+     * @param employee a JSON representation of the employee; The id parameter overrides any id specified here.
+     * @return new/updated employee entity
      * @throws SQLException
      */
     @ApiMethod(path="employee/{id}", httpMethod=PUT)
@@ -190,17 +189,17 @@ public class EmployeeResource {
 
     /**
      * POST
-     * This method creates an instance of Person with a new, unique ID
+     * This method creates an instance of Employee with a new, unique ID
      * number. We do this because POST is not idempotent, meaning that running
      * the same POST several times creates multiple objects with unique IDs but
      * otherwise having the same field values.
      *
-     * The method creates a new, unique ID by querying the player table for the
+     * The method creates a new, unique ID by querying the employee table for the
      * largest ID and adding 1 to that. Using a DB sequence would be a better solution.
-     * This method creates an instance of Person with a new, unique ID.
+     * This method creates an instance of Employee with a new, unique ID.
      *
-     * @param player a JSON representation of the player to be created
-     * @return new player entity with a system-generated ID
+     * @param employee a JSON representation of the employee to be created
+     * @return new employee entity with a system-generated ID
      * @throws SQLException
      */
     @ApiMethod(path="employee", httpMethod=POST)
@@ -230,12 +229,12 @@ public class EmployeeResource {
 
     /**
      * DELETE
-     * This method deletes the instance of Person with a given ID, if it exists.
-     * If the player with the given ID doesn't exist, SQL won't delete anything.
+     * This method deletes the instance of Employee with a given ID, if it exists.
+     * If the employee with the given ID doesn't exist, SQL won't delete anything.
      * This makes DELETE idempotent.
      *
-     * @param id     the ID for the player, assumed to be unique
-     * @return the deleted player, if any
+     * @param id     the ID for the employee, assumed to be unique
+     * @return the deleted employee, if any
      * @throws SQLException
      */
     @ApiMethod(path="employee/{id}", httpMethod=DELETE)
@@ -257,7 +256,7 @@ public class EmployeeResource {
     /** SQL Utility Functions *********************************************/
 
     /*
-     * This function gets the player with the given id using the given JDBC statement.
+     * This function gets the employee with the given id using the given JDBC statement.
      */
     private ResultSet selectEmployee(int id, Statement statement) throws SQLException {
         return statement.executeQuery(
@@ -266,7 +265,7 @@ public class EmployeeResource {
     }
 
     /*
-     * This function gets the player with the given id using the given JDBC statement.
+     * This function gets the employee with the given id using the given JDBC statement.
      */
     private ResultSet selectEmployees(Statement statement) throws SQLException {
         return statement.executeQuery(
@@ -275,7 +274,7 @@ public class EmployeeResource {
     }
 
     /*
-     * This function modifies the given player using the given JDBC statement.
+     * This function modifies the given employee using the given JDBC statement.
      */
     private void updateEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
@@ -289,7 +288,7 @@ public class EmployeeResource {
     }
 
     /*
-     * This function inserts the given player using the given JDBC statement.
+     * This function inserts the given employee using the given JDBC statement.
      */
     private void insertEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
@@ -303,7 +302,7 @@ public class EmployeeResource {
     }
 
     /*
-     * This function gets the player with the given id using the given JDBC statement.
+     * This function gets the employee with the given id using the given JDBC statement.
      */
     private void deleteEmployee(int id, Statement statement) throws SQLException {
         statement.executeUpdate(

@@ -44,44 +44,43 @@ import static com.google.api.server.spi.config.ApiMethod.HttpMethod.DELETE;
 )
 
 /**
- * This class implements a RESTful service for the player table of the monopoly database.
- * Only the player table is supported, not the game or playergame tables.
+ * This class implements a RESTful service for the time table of our project database.
  *
  * You can test the GET endpoints using a standard browser or cURL.
  *
  * % curl --request GET \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/players
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/times
  *
  * % curl --request GET \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/1
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/time/1
  *
  * You can test the full REST API using the following sequence of cURL commands (on Linux):
- * (Run get-players between each command to see the results.)
+ * (Run get-times between each command to see the results.)
  *
- * // Add a new player (probably as unique generated ID #4).
+ * // Add a new time (probably as unique generated ID #5).
  * % curl --request POST \
  *    --header "Content-Type: application/json" \
- *    --data '{"name":"test name...", "emailAddress":"test email..."}' \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player
+ *    --data '{"uuid":"test uuid...", "startTime":"test start...", "endTime":"test end...", "employeeID":1, "projectID":1}' \
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/time
  *
- * // Edit the new player (assuming ID #4).
+ * // Edit the new time (assuming ID #5).
  * % curl --request PUT \
  *    --header "Content-Type: application/json" \
- *    --data '{"name":"new test name...", "emailAddress":"new test email..."}' \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/4
+ *    --data '{"uuid":"test uuid...", "startTime":"test start...", "endTime":"test end...", "employeeID":1, "projectID":1}' \
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/time/5
  *
- * // Delete the new player (assuming ID #4).
+ * // Delete the new time (assuming ID #5).
  * % curl --request DELETE \
- *    https://calvincs262-monopoly.appspot.com/monopoly/v1/player/4
+ *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/time/5
  *
  */
 public class TimeResource {
 
     /**
      * GET
-     * This method gets the full list of players from the Player table.
+     * This method gets the full list of times from the Time table.
      *
-     * @return JSON-formatted list of player records (based on a root JSON tag of "items")
+     * @return JSON-formatted list of time records (based on a root JSON tag of "items")
      * @throws SQLException
      */
     @ApiMethod(path="times", httpMethod=GET)
@@ -117,10 +116,10 @@ public class TimeResource {
 
     /**
      * GET
-     * This method gets the player from the Player table with the given ID.
+     * This method gets the time from the Time table with the given ID.
      *
-     * @param id the ID of the requested player
-     * @return if the player exists, a JSON-formatted player record, otherwise an invalid/empty JSON entity
+     * @param id the ID of the requested time
+     * @return if the time exists, a JSON-formatted time record, otherwise an invalid/empty JSON entity
      * @throws SQLException
      */
     @ApiMethod(path="time/{id}", httpMethod=GET)
@@ -155,16 +154,16 @@ public class TimeResource {
 
     /**
      * PUT
-     * This method creates/updates an instance of Person with a given ID.
-     * If the player doesn't exist, create a new player using the given field values.
-     * If the player already exists, update the fields using the new player field values.
+     * This method creates/updates an instance of Time with a given ID.
+     * If the time doesn't exist, create a new time using the given field values.
+     * If the time already exists, update the fields using the new time field values.
      * We do this because PUT is idempotent, meaning that running the same PUT several
      * times is the same as running it exactly once.
-     * Any player ID value set in the passed player data is ignored.
+     * Any time ID value set in the passed time data is ignored.
      *
-     * @param id     the ID for the player, assumed to be unique
-     * @param player a JSON representation of the player; The id parameter overrides any id specified here.
-     * @return new/updated player entity
+     * @param id     the ID for the time, assumed to be unique
+     * @param time a JSON representation of the time; The id parameter overrides any id specified here.
+     * @return new/updated time entity
      * @throws SQLException
      */
     @ApiMethod(path="time/{id}", httpMethod=PUT)
@@ -194,17 +193,17 @@ public class TimeResource {
 
     /**
      * POST
-     * This method creates an instance of Person with a new, unique ID
+     * This method creates an instance of Time with a new, unique ID
      * number. We do this because POST is not idempotent, meaning that running
      * the same POST several times creates multiple objects with unique IDs but
      * otherwise having the same field values.
      *
-     * The method creates a new, unique ID by querying the player table for the
+     * The method creates a new, unique ID by querying the time table for the
      * largest ID and adding 1 to that. Using a DB sequence would be a better solution.
-     * This method creates an instance of Person with a new, unique ID.
+     * This method creates an instance of Time with a new, unique ID.
      *
-     * @param player a JSON representation of the player to be created
-     * @return new player entity with a system-generated ID
+     * @param time a JSON representation of the time to be created
+     * @return new time entity with a system-generated ID
      * @throws SQLException
      */
     @ApiMethod(path="time", httpMethod=POST)
@@ -234,12 +233,12 @@ public class TimeResource {
 
     /**
      * DELETE
-     * This method deletes the instance of Person with a given ID, if it exists.
-     * If the player with the given ID doesn't exist, SQL won't delete anything.
+     * This method deletes the instance of Time with a given ID, if it exists.
+     * If the time with the given ID doesn't exist, SQL won't delete anything.
      * This makes DELETE idempotent.
      *
-     * @param id     the ID for the player, assumed to be unique
-     * @return the deleted player, if any
+     * @param id     the ID for the time, assumed to be unique
+     * @return the deleted time, if any
      * @throws SQLException
      */
     @ApiMethod(path="time/{id}", httpMethod=DELETE)
@@ -261,7 +260,7 @@ public class TimeResource {
     /** SQL Utility Functions *********************************************/
 
     /*
-     * This function gets the player with the given id using the given JDBC statement.
+     * This function gets the time with the given id using the given JDBC statement.
      */
     private ResultSet selectTime(int id, Statement statement) throws SQLException {
         return statement.executeQuery(
@@ -270,7 +269,7 @@ public class TimeResource {
     }
 
     /*
-     * This function gets the player with the given id using the given JDBC statement.
+     * This function gets the time with the given id using the given JDBC statement.
      */
     private ResultSet selectTimes(Statement statement) throws SQLException {
         return statement.executeQuery(
@@ -279,7 +278,7 @@ public class TimeResource {
     }
 
     /*
-     * This function modifies the given player using the given JDBC statement.
+     * This function modifies the given time using the given JDBC statement.
      */
     private void updateTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
@@ -295,7 +294,7 @@ public class TimeResource {
     }
 
     /*
-     * This function inserts the given player using the given JDBC statement.
+     * This function inserts the given time using the given JDBC statement.
      */
     private void insertTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
@@ -311,7 +310,7 @@ public class TimeResource {
     }
 
     /*
-     * This function gets the player with the given id using the given JDBC statement.
+     * This function gets the time with the given id using the given JDBC statement.
      */
     private void deleteTime(int id, Statement statement) throws SQLException {
         statement.executeUpdate(
