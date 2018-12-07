@@ -60,13 +60,13 @@ import static com.google.api.server.spi.config.ApiMethod.HttpMethod.DELETE;
  * // Add a new employee (as a uniquely generated ID).
  * % curl --request POST \
  *    --header "Content-Type: application/json" \
- *    --data '{"name":"test name...", "username":"test username...", "password":"test password..."}' \
+ *    --data '{username":"test username...", "password":"test password..."}' \
  *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employee
  *
  * // Edit the new player (assuming ID #6).
  * % curl --request PUT \
  *    --header "Content-Type: application/json" \
- *    --data '{"name":"new test name...", "username":"test username...", "password":"test password..."}' \
+ *    --data '{username":"test username...", "password":"test password..."}' \
  *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/employee/6
  *
  * // Delete the new player (assuming ID #6).
@@ -97,8 +97,7 @@ public class EmployeeResource {
                 Employee emp = new Employee(
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4)
+                        resultSet.getString(3)
                 );
                 result.add(emp);
             }
@@ -134,8 +133,7 @@ public class EmployeeResource {
                 result = new Employee(
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4)
+                        resultSet.getString(3)
                 );
             }
         } catch (SQLException e) {
@@ -278,8 +276,7 @@ public class EmployeeResource {
      */
     private void updateEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE Employee SET name='%s', username='%s', password='%s' WHERE id=%d",
-                        employee.getName(),
+                String.format("UPDATE Employee SET username='%s', password='%s' WHERE id=%d",
                         employee.getUsername(),
                         employee.getPassword(),
                         employee.getId()
@@ -292,9 +289,8 @@ public class EmployeeResource {
      */
     private void insertEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("INSERT INTO Employee VALUES (%d, '%s', '%s', '%s')",
+                String.format("INSERT INTO Employee VALUES (%d, %s', '%s')",
                         employee.getId(),
-                        employee.getName(),
                         employee.getUsername(),
                         employee.getPassword()
                 )

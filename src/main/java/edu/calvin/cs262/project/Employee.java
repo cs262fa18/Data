@@ -9,15 +9,14 @@ package edu.calvin.cs262.project;
 public class Employee {
 
     private int id;
-    private String name, username, password;
+    private String username, password;
 
 
     public Employee() {
         // The JSON marshaller used by Endpoints requires this default constructor.
     }
-    public Employee(int id, String name, String username, String password) {
+    public Employee(int id, String username, String password) {
         this.id = id;
-        this.name = name;
         this.username = username;
         this.password = password;
     }
@@ -27,14 +26,6 @@ public class Employee {
     }
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUsername() {
