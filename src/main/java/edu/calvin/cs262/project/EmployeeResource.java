@@ -289,7 +289,7 @@ public class EmployeeResource {
      */
     private void insertEmployee(Employee employee, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("INSERT INTO Employee VALUES (%d, %s', '%s')",
+                String.format("INSERT INTO Employee VALUES (%d, '%s', '%s')",
                         employee.getId(),
                         employee.getUsername(),
                         employee.getPassword()
