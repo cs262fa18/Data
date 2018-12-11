@@ -66,7 +66,7 @@ import static com.google.api.server.spi.config.ApiMethod.HttpMethod.DELETE;
  * // Edit the new time (assuming ID #5).
  * % curl --request PUT \
  *    --header "Content-Type: application/json" \
- *    --data '{"uuid":"test uuid...", "startTime":"test start...", "endTime":"test end...", "employeeID":1, "projectID":1}' \
+ *    --data '{"endTime":"test end..."}' \
  *    https://calvincs262-fall2018-teama.appspot.com/monopoly/v1/time/5
  *
  * // Delete the new time (assuming ID #5).
@@ -282,12 +282,8 @@ public class TimeResource {
      */
     private void updateTime(Time time, Statement statement) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE Time SET uuid='%s, starttime='%s', endtime='%s', employeeid=%d, projectid=%d WHERE id=%d",
-                        time.getUUID(),
-                        time.getStartTime(),
+                String.format("UPDATE Time SET endtime='%s' WHERE id=%d",
                         time.getEndTime(),
-                        time.getEmployeeID(),
-                        time.getProjectID(),
                         time.getID()
                 )
         );
